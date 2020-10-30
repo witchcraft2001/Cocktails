@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Cocktails</string>
+    <string name="message_not_found">Not found!</string>
 </resources>
