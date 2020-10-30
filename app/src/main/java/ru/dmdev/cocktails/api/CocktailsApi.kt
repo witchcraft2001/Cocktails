@@ -4,12 +4,17 @@ import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.http.GET
+import retrofit2.http.Query
 import ru.dmdev.cocktails.BuildConfig
 import ru.dmdev.cocktails.api.responses.CategoryListResponse
+import ru.dmdev.cocktails.api.responses.CocktailListResponse
 
 interface CocktailsApi {
     @GET("list.php?c=list")
     suspend fun getCategoriesAsync(): CategoryListResponse
+
+    @GET("filter.php")
+    suspend fun getFilteredCocktailsAsync(@Query("c") category: String): CocktailListResponse
 
     companion object Factory {
         fun create(): CocktailsApi {
