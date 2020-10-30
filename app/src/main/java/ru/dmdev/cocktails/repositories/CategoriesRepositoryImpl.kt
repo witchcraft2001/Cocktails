@@ -7,8 +7,9 @@ import ru.dmdev.cocktails.extensions.toModel
 import ru.dmdev.cocktails.models.Category
 import ru.dmdev.cocktails.repositories.exceptions.RepositoryDataNotFoundException
 import ru.dmdev.cocktails.repositories.models.RepositoryResult
+import javax.inject.Inject
 
-class CategoriesRepositoryImpl constructor(private val apiService: CocktailsApi) : CategoriesRepository {
+class CategoriesRepositoryImpl @Inject constructor(private val apiService: CocktailsApi) : CategoriesRepository {
 
     override suspend fun getCategories(): RepositoryResult<List<Category>> {
         return try {

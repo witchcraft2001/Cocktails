@@ -7,8 +7,9 @@ import ru.dmdev.cocktails.extensions.toModel
 import ru.dmdev.cocktails.models.Cocktail
 import ru.dmdev.cocktails.repositories.exceptions.RepositoryDataNotFoundException
 import ru.dmdev.cocktails.repositories.models.RepositoryResult
+import javax.inject.Inject
 
-class CocktailsRepositoryImpl constructor(private val apiService: CocktailsApi) : CocktailsRepository {
+class CocktailsRepositoryImpl @Inject constructor(private val apiService: CocktailsApi) : CocktailsRepository {
 
     override suspend fun getFilteredCocktails(categoryName: String): RepositoryResult<List<Cocktail>> {
         return try {
