@@ -1,9 +1,9 @@
 package ru.dmdev.cocktails.api.responses
 
-import com.squareup.moshi.Json
+import com.google.gson.annotations.SerializedName
 
 data class CocktailResponse (
-    @Json(name="strDrink") val name: String,
-    @Json(name="strDrinkThumb") val thumb: String,
-    @Json(name="idDrink") val id: String
+    @SerializedName("strDrink") val name: String,
+    @SerializedName("strDrinkThumb") val thumb: String,
+    @SerializedName("idDrink") val id: String
 )

@@ -4,7 +4,7 @@ import dagger.Module
 import dagger.Provides
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
-import retrofit2.converter.moshi.MoshiConverterFactory
+import retrofit2.converter.gson.GsonConverterFactory
 import ru.dmdev.cocktails.BuildConfig
 import ru.dmdev.cocktails.api.CocktailsApi
 import javax.inject.Singleton
@@ -29,7 +29,7 @@ class NetworkModule {
             .build()
 
         val retrofit = Retrofit.Builder()
-            .addConverterFactory(MoshiConverterFactory.create())
+            .addConverterFactory(GsonConverterFactory.create())
             .baseUrl("https://the-cocktail-db.p.rapidapi.com/")
             .client(client)
             .build()

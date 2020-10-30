@@ -1,7 +1,7 @@
 package ru.dmdev.cocktails.api.responses
 
-import com.squareup.moshi.Json
+import com.google.gson.annotations.SerializedName
 
 data class CategoryListResponse (
-    @field:Json(name = "drinks") val categories: List<CategoryResponse>
+    @SerializedName("drinks") val categories: List<CategoryResponse>
 )

@@ -2,7 +2,7 @@ package ru.dmdev.cocktails.api
 
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
-import retrofit2.converter.moshi.MoshiConverterFactory
+import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Query
 import ru.dmdev.cocktails.BuildConfig
@@ -34,7 +34,7 @@ interface CocktailsApi {
                 .build()
 
             val retrofit = Retrofit.Builder()
-                .addConverterFactory(MoshiConverterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create())
                 .baseUrl("https://the-cocktail-db.p.rapidapi.com/")
                 .client(client)
                 .build()
