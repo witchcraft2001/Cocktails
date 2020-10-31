@@ -18,16 +18,28 @@
         tools:context=".MainActivity">
 
         <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvCategories"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/categories_selector_height"
+            android:visibility="@{viewModel.spinner || viewModel.error != null ? View.GONE : View.VISIBLE}"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:listitem="@layout/layout_category_list_item"
+            tools:visibility="visible" />
+
+        <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvItems"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="0dp"
             android:visibility="@{viewModel.spinner || viewModel.error != null ? View.GONE : View.VISIBLE}"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:listitem="@layout/layout_item"
+            app:layout_constraintTop_toBottomOf="@id/rvCategories"
+            tools:listitem="@layout/layout_cocktail_list_item"
             tools:visibility="visible" />
 
         <ProgressBar

@@ -6,5 +6,5 @@ import ru.dmdev.cocktails.adapters.base.IBaseListItem
 data class Category(
     val name: String
 ): IBaseListItem {
-    override fun getLayoutId() = R.layout.layout_item
+    override fun getLayoutId() = R.layout.layout_category_list_item
 }

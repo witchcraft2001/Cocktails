@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="categories_selector_height">56dp</dimen>
+    <dimen name="cocktail_card_height">240dp</dimen>
+    <dimen name="small_margin">8dp</dimen>
+    <dimen name="card_corner_radius">5dp</dimen>
+</resources>
