@@ -28,6 +28,6 @@ class CategoryListAdapter : SimpleListAdapter() {
     }
 
     class CategoryViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val name = view.textName
+        val name = view.btnCategory
     }
 }

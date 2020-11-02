@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <color name="primaryVariant">#FF3B3953</color>
+    <color name="primary">#FF201F2C</color>
+
     <color name="purple_200">#FFBB86FC</color>
     <color name="purple_500">#FF6200EE</color>
     <color name="purple_700">#FF3700B3</color>
@@ -7,4 +10,8 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="background">#FF1A1926</color>
+    <color name="selected_bg">#FF3B3953</color>
+    <color name="unselected_bg">#FF201F2C</color>
+    <color name="gray_border">#FF2D2C39</color>
 </resources>
