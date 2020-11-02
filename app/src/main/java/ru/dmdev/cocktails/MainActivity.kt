@@ -2,6 +2,7 @@ package ru.dmdev.cocktails
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -10,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import ru.dmdev.cocktails.adapters.CategoryListAdapter
 import ru.dmdev.cocktails.adapters.CocktailListAdapter
+import ru.dmdev.cocktails.adapters.listeners.OnAdapterClickListener
 import ru.dmdev.cocktails.databinding.ActivityMainBinding
 import ru.dmdev.cocktails.models.Category
 import ru.dmdev.cocktails.models.Cocktail
@@ -59,8 +61,16 @@ class MainActivity : AppCompatActivity() {
         cocktailsAdapter.add(list)
     }
 
+    private fun updateCocktailList(category: Category) {
+        viewModel.getCocktails(category.name)
+    }
+
     private fun initCategoriesRecyclerView(rvItem: RecyclerView) {
-        categoriesAdapter = CategoryListAdapter()
+        categoriesAdapter = CategoryListAdapter(object: OnAdapterClickListener<Category> {
+            override fun onClickItem(item: Category) {
+                updateCocktailList(item)
+            }
+        })
         rvItem.adapter = categoriesAdapter
         rvItem.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
         rvItem.setHasFixedSize(false)

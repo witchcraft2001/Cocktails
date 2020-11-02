@@ -19,6 +19,13 @@ abstract class SimpleListAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>
         notifyDataSetChanged()
     }
 
+    override fun getItemAtPosition(position: Int): IBaseListItem? {
+        if (items.size >= position)
+            return null
+
+        return items[position]
+    }
+
     override fun add(newItems: List<IBaseListItem>?) {
         items.addAll(newItems?.toList() ?: return)
         notifyDataSetChanged()

@@ -7,8 +7,18 @@ import ru.dmdev.cocktails.R
 import ru.dmdev.cocktails.adapters.base.SimpleListAdapter
 import ru.dmdev.cocktails.models.Category
 import kotlinx.android.synthetic.main.layout_category_list_item.view.*
+import ru.dmdev.cocktails.adapters.listeners.OnAdapterClickListener
 
-class CategoryListAdapter : SimpleListAdapter() {
+class CategoryListAdapter(val clickListener: OnAdapterClickListener<Category>) : SimpleListAdapter() {
+
+    var selected: Category? = null
+
+    fun setSelectedCategory(category: Category) {
+        selected = category
+        this.notifyDataSetChanged()
+        clickListener?.onClickItem(category)
+    }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val context = parent.context
         return when (viewType) {
@@ -21,13 +31,18 @@ class CategoryListAdapter : SimpleListAdapter() {
         when (holder) {
             is CategoryViewHolder -> {
                 val category = items[position] as Category
-                holder.name.text = category.name
+                holder.button.text = category.name
+                holder.button.textOff = category.name
+                holder.button.textOn = category.name
+//                holder.button.isPressed = selected?.name == category.name
+                holder.button.isChecked = selected?.name == category.name
+                holder.button.setOnClickListener { setSelectedCategory(items[position] as Category)}
             }
             else -> throw IllegalStateException("There is no match with current holder instance")
         }
     }
 
     class CategoryViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val name = view.btnCategory
+        val button = view.btnCategory
     }
 }
