@@ -9,7 +9,8 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="@android:color/background_dark">
 
         <ImageView
             android:id="@+id/imageThumb"
@@ -25,20 +26,27 @@
             android:id="@+id/textName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_margin="@dimen/small_margin"
             android:textAppearance="@style/TextAppearance.AppCompat.Headline"
             app:layout_constraintBottom_toTopOf="@id/textId"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
+            android:textColor="@android:color/white"
+            android:textSize="17sp"
+            android:textFontWeight="800"
             tools:text="Test" />
 
         <TextView
             android:id="@+id/textId"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+            android:gravity="center"
+            android:layout_margin="@dimen/small_margin"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
+            android:background="@drawable/text_rounded_grey_outline"
+            android:textColor="@android:color/darker_gray"
+            android:textSize="14sp"
             tools:text="Test" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
