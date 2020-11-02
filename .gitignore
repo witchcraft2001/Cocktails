@@ -84,3 +84,5 @@ lint/tmp/
 .idea/
 
 apikey.properties
+
+.DS_Store
