@@ -21,7 +21,7 @@
             android:id="@+id/rvCategories"
             android:layout_width="match_parent"
             android:layout_height="@dimen/categories_selector_height"
-            android:visibility="@{viewModel.spinner || viewModel.error != null ? View.GONE : View.VISIBLE}"
+            android:visibility="@{viewModel.categories == null ? View.GONE : View.VISIBLE}"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
@@ -42,15 +42,28 @@
             tools:listitem="@layout/layout_cocktail_list_item"
             tools:visibility="visible" />
 
-        <ProgressBar
-            android:id="@+id/progressBar"
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical"
             android:visibility="@{viewModel.spinner ? View.VISIBLE : View.GONE}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_shaker" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/txt_searching"
+                android:textColor="@android:color/white" />
+        </LinearLayout>
 
         <TextView
             android:id="@+id/textNotFound"

@@ -2,4 +2,5 @@
     <string name="app_name">Cocktails</string>
     <string name="message_not_found">Not found!</string>
     <string name="thumbnail">Thumbnail</string>
+    <string name="txt_searching">Searching...</string>
 </resources>
