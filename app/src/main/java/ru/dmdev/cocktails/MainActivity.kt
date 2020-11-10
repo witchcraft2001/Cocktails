@@ -8,11 +8,12 @@ import dagger.android.AndroidInjection
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasAndroidInjector
+import dagger.android.support.DaggerAppCompatActivity
 import ru.dmdev.cocktails.databinding.ActivityMainBinding
 import ru.dmdev.cocktails.screens.search.SearchFragment
 import javax.inject.Inject
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : DaggerAppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
 
     @Inject
@@ -23,6 +24,6 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
-        supportFragmentManager.beginTransaction().add(R.id.fragment_container, searchFragment).commit()
+        supportFragmentManager.beginTransaction().replace(R.id.fragment_container, searchFragment).commit()
     }
 }

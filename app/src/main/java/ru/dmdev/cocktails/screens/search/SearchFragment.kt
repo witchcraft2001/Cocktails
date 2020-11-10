@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import dagger.android.AndroidInjection
+import dagger.android.support.DaggerFragment
 import ru.dmdev.cocktails.R
 import ru.dmdev.cocktails.adapters.CategoryListAdapter
 import ru.dmdev.cocktails.adapters.CocktailListAdapter
@@ -24,7 +25,7 @@ import ru.dmdev.cocktails.models.Cocktail
 import javax.inject.Inject
 
 
-class SearchFragment : Fragment {
+class SearchFragment : DaggerFragment {
     private lateinit var categoriesAdapter: CategoryListAdapter
     private lateinit var cocktailsAdapter: CocktailListAdapter
     private lateinit var binding: FragmentSearchBinding
