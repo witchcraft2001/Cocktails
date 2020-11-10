@@ -1,20 +1,25 @@
 package ru.dmdev.cocktails.di.components
 
 import dagger.Component
-import ru.dmdev.cocktails.MainActivity
-import ru.dmdev.cocktails.di.modules.MainActivityModule
-import ru.dmdev.cocktails.di.modules.NetworkModule
-import ru.dmdev.cocktails.di.modules.RepositoryModule
-import ru.dmdev.cocktails.di.modules.ViewModelModule
+import dagger.android.AndroidInjectionModule
+import dagger.android.support.AndroidSupportInjectionModule
+import ru.dmdev.cocktails.CocktailsApp
+import ru.dmdev.cocktails.di.modules.*
 import javax.inject.Singleton
 
 @Singleton
-@Component(modules = [
-    NetworkModule::class,
-    RepositoryModule::class,
-    ViewModelModule::class,
-    MainActivityModule::class
-])
+@Component(
+    modules = [
+        AndroidSupportInjectionModule::class,
+        AndroidInjectionModule::class,
+        ActivitiesModule::class,
+        AppModule::class,
+        NetworkModule::class,
+        ViewModelModule::class,
+        SearchFragmentModule::class,
+        RepositoryModule::class
+    ]
+)
 interface AppComponent {
-    fun inject(activity: MainActivity)
+    fun inject(application: CocktailsApp)
 }
