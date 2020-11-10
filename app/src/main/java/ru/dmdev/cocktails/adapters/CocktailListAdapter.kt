@@ -4,6 +4,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions.withCrossFade
 import kotlinx.android.synthetic.main.layout_cocktail_list_item.view.*
 import ru.dmdev.cocktails.R
 import ru.dmdev.cocktails.adapters.base.SimpleListAdapter
@@ -27,6 +28,7 @@ class CocktailListAdapter : SimpleListAdapter() {
                 Glide
                     .with(holder.imageThumb)
                     .load(cocktail.thumb)
+                    .transition(withCrossFade())
                     .centerCrop()
                     .into(holder.imageThumb)
             }
