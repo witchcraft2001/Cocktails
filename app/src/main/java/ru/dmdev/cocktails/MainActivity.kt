@@ -11,6 +11,7 @@ import dagger.android.HasAndroidInjector
 import dagger.android.support.DaggerAppCompatActivity
 import ru.dmdev.cocktails.databinding.ActivityMainBinding
 import ru.dmdev.cocktails.screens.search.SearchFragment
+import ru.dmdev.cocktails.utils.ActivityUtils
 import javax.inject.Inject
 
 class MainActivity : DaggerAppCompatActivity() {
@@ -19,11 +20,15 @@ class MainActivity : DaggerAppCompatActivity() {
     @Inject
     lateinit var searchFragment: SearchFragment
 
+    @Inject
+    lateinit var activityUtils: ActivityUtils
+
     override fun onCreate(savedInstanceState: Bundle?) {
         AndroidInjection.inject(this)
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
+//        activityUtils.setCurrentFragment(this, searchFragment, false, "Home", false)
         supportFragmentManager.beginTransaction().replace(R.id.fragment_container, searchFragment).commit()
     }
 }

@@ -5,6 +5,7 @@ import dagger.android.AndroidInjectionModule
 import dagger.android.support.AndroidSupportInjectionModule
 import ru.dmdev.cocktails.CocktailsApp
 import ru.dmdev.cocktails.di.modules.*
+import ru.dmdev.cocktails.utils.ActivityUtils
 import javax.inject.Singleton
 
 @Singleton
@@ -12,11 +13,13 @@ import javax.inject.Singleton
     modules = [
         AndroidSupportInjectionModule::class,
         AndroidInjectionModule::class,
+        NavigationModule::class,
         ActivitiesModule::class,
         AppModule::class,
         NetworkModule::class,
         ViewModelModule::class,
         SearchFragmentModule::class,
+        CocktailDetailsFragmentModule::class,
         RepositoryModule::class
     ]
 )
