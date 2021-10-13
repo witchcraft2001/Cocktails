@@ -1,6 +1,5 @@
 package ru.dmdev.cocktails.screens.search
 
-import android.app.Activity
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -12,20 +11,18 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import dagger.android.support.DaggerFragment
-import ru.dmdev.cocktails.screens.details.CocktailDetailsFragment
 import ru.dmdev.cocktails.R
 import ru.dmdev.cocktails.adapters.CategoryListAdapter
 import ru.dmdev.cocktails.adapters.CocktailListAdapter
 import ru.dmdev.cocktails.adapters.listeners.OnAdapterClickListener
-import ru.dmdev.cocktails.databinding.ActivityMainBinding
 import ru.dmdev.cocktails.databinding.FragmentSearchBinding
 import ru.dmdev.cocktails.models.Category
 import ru.dmdev.cocktails.models.Cocktail
+import ru.dmdev.cocktails.screens.details.CocktailDetailsFragment
 import ru.dmdev.cocktails.utils.ActivityUtils
 import javax.inject.Inject
 
-
-class SearchFragment : DaggerFragment {
+class SearchFragment @Inject constructor() : DaggerFragment() {
     private lateinit var categoriesAdapter: CategoryListAdapter
     private lateinit var cocktailsAdapter: CocktailListAdapter
     private lateinit var binding: FragmentSearchBinding
@@ -35,31 +32,23 @@ class SearchFragment : DaggerFragment {
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
-    protected lateinit var viewModel : SearchViewModel
-
-    @Inject
-    constructor() : super()
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
+    lateinit var viewModel : SearchViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_search, container, false)
         initCategoriesRecyclerView(binding.rvCategories)
         initRecyclerView(binding.rvItems)
         binding.lifecycleOwner = this
+        viewModel = ViewModelProvider(this, viewModelFactory)[SearchViewModel::class.java]
         binding.viewModel = viewModel
         return binding.root
     }
 
-    override fun onAttach(activity: Activity) {
-        super.onAttach(activity)
-        viewModel = ViewModelProvider(this, viewModelFactory)[SearchViewModel::class.java]
-
+    override fun onStart() {
+        super.onStart()
         viewModel.refreshCategories()
 
         viewModel.categories.observe(this, Observer { categories ->
@@ -103,7 +92,7 @@ class SearchFragment : DaggerFragment {
     private fun initRecyclerView(rvItem: RecyclerView) {
         cocktailsAdapter = CocktailListAdapter(object : OnAdapterClickListener<Cocktail>{
             override fun onClickItem(item: Cocktail) {
-                activityUtils.setCurrentFragment(activity!!, CocktailDetailsFragment.newInstance(item.id), true, "Details", true);
+                activityUtils.setCurrentFragment(requireActivity(), CocktailDetailsFragment.newInstance(item), true, null, true)
             }
         })
         rvItem.adapter = cocktailsAdapter

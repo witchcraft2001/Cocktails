@@ -8,7 +8,7 @@ import ru.dmdev.cocktails.R
 class ActivityUtils {
     fun setCurrentFragment(
         activity: FragmentActivity,
-        fragment: Fragment?,
+        fragment: Fragment,
         addToBackStack: Boolean,
         name: String?,
         useTransition: Boolean
@@ -18,7 +18,7 @@ class ActivityUtils {
         if (useTransition) {
             ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
         }
-        ft.replace(R.id.fragment_container, fragment!!, name)
+        ft.replace(R.id.fragment_container, fragment)
         if (addToBackStack) {
             ft.addToBackStack(name)
         }

@@ -9,7 +9,6 @@ import kotlinx.android.synthetic.main.layout_cocktail_list_item.view.*
 import ru.dmdev.cocktails.R
 import ru.dmdev.cocktails.adapters.base.SimpleListAdapter
 import ru.dmdev.cocktails.adapters.listeners.OnAdapterClickListener
-import ru.dmdev.cocktails.models.Category
 import ru.dmdev.cocktails.models.Cocktail
 
 class CocktailListAdapter(private val clickListener: OnAdapterClickListener<Cocktail>) :
