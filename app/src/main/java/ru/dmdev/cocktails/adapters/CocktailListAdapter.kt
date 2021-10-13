@@ -8,13 +8,21 @@ import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions.withC
 import kotlinx.android.synthetic.main.layout_cocktail_list_item.view.*
 import ru.dmdev.cocktails.R
 import ru.dmdev.cocktails.adapters.base.SimpleListAdapter
+import ru.dmdev.cocktails.adapters.listeners.OnAdapterClickListener
 import ru.dmdev.cocktails.models.Cocktail
 
-class CocktailListAdapter : SimpleListAdapter() {
+class CocktailListAdapter(private val clickListener: OnAdapterClickListener<Cocktail>) :
+    SimpleListAdapter() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val context = parent.context
         return when (viewType) {
-            R.layout.layout_cocktail_list_item -> CategoryViewHolder(inflateByViewType(context, viewType, parent))
+            R.layout.layout_cocktail_list_item -> CategoryViewHolder(
+                inflateByViewType(
+                    context,
+                    viewType,
+                    parent
+                )
+            )
             else -> throw IllegalStateException("There is no match with current layoutId")
         }
     }
@@ -31,6 +39,7 @@ class CocktailListAdapter : SimpleListAdapter() {
                     .transition(withCrossFade())
                     .centerCrop()
                     .into(holder.imageThumb)
+                holder.itemView.setOnClickListener { clickListener.onClickItem(cocktail) }
             }
             else -> throw IllegalStateException("There is no match with current holder instance")
         }
@@ -40,5 +49,6 @@ class CocktailListAdapter : SimpleListAdapter() {
         val id = view.textId
         val name = view.textName
         val imageThumb = view.imageThumb
+//        val rootLayout = view.rootLayout
     }
 }

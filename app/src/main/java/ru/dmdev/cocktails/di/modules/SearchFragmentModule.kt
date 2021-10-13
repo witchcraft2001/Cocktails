@@ -3,10 +3,7 @@ package ru.dmdev.cocktails.di.modules
 import androidx.lifecycle.ViewModel
 import dagger.Binds
 import dagger.Module
-import dagger.Provides
-import dagger.android.AndroidInjector
 import dagger.android.ContributesAndroidInjector
-import dagger.multibindings.ClassKey
 import dagger.multibindings.IntoMap
 import ru.dmdev.cocktails.di.ViewModelKey
 import ru.dmdev.cocktails.screens.search.SearchFragment
