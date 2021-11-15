@@ -1,85 +1,55 @@
 package ru.dmdev.cocktails
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
-import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import ru.dmdev.cocktails.adapters.CategoryListAdapter
-import ru.dmdev.cocktails.adapters.CocktailListAdapter
-import ru.dmdev.cocktails.adapters.listeners.OnAdapterClickListener
-import ru.dmdev.cocktails.databinding.ActivityMainBinding
-import ru.dmdev.cocktails.models.Category
-import ru.dmdev.cocktails.models.Cocktail
-import ru.dmdev.cocktails.viewmodels.MainViewModel
+import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.FragmentActivity
+import com.github.terrakok.cicerone.Cicerone
+import com.github.terrakok.cicerone.Router
+import ru.dmdev.cocktails.di.components.AppComponent
+import ru.dmdev.cocktails.di.components.DaggerAppComponent
+import ru.dmdev.cocktails.di.components.MainActivityComponent
+import ru.dmdev.cocktails.di.modules.NavigationModule
+import ru.dmdev.cocktails.navigation.NavigatorHolder
 import javax.inject.Inject
 
 class MainActivity : AppCompatActivity() {
-    private lateinit var categoriesAdapter: CategoryListAdapter
-    private lateinit var cocktailsAdapter: CocktailListAdapter
-    private lateinit var binding: ActivityMainBinding
+    @Inject
+    lateinit var cicerone: Cicerone<Router>
 
     @Inject
-    lateinit var viewModelFactory: ViewModelProvider.Factory
-    protected lateinit var viewModel : MainViewModel
+    lateinit var navigator: NavigatorHolder
+
+    val appComponent: AppComponent by lazy { DaggerAppComponent.builder().build() }
+
+    companion object {
+        lateinit var instance: MainActivity
+    }
+
+    val component: MainActivityComponent? by lazy {
+        applicationContext?.let {
+            DaggerMainActivityComponent.builder()
+                    .applicationComponent(CocktailsApp.instance.appComponent)
+                    .navigationModule(NavigationModule(this as FragmentActivity, supportFragmentManager, R.id.sceneContainer))
+                    .build()
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        instance = this
+
+        component?.inject(this)
         super.onCreate(savedInstanceState)
-        (applicationContext as CocktailsApp).appComponent.inject(this)
-        viewModel = ViewModelProvider(this, viewModelFactory)[MainViewModel::class.java]
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
-        initCategoriesRecyclerView(binding.rvCategories)
-        initRecyclerView(binding.rvItems)
-        binding.lifecycleOwner = this
-        binding.viewModel = viewModel
-        viewModel.refreshCategories()
 
-        viewModel.categories.observe(this, Observer { categories ->
-            categories?.let {
-                showCategories(it)
-            }
-        })
-
-        viewModel.cocktails.observe(this, Observer { categories ->
-            categories?.let {
-                showCocktails(it)
-            }
-        })
+        setContentView(R.layout.activity_main)
     }
 
-    private fun showCategories(list: List<Category>) {
-        categoriesAdapter.clearAll()
-        categoriesAdapter.add(list)
+    override fun onResume() {
+        super.onResume()
+        cicerone.getNavigatorHolder().setNavigator(navigator)
     }
 
-    private fun showCocktails(list: List<Cocktail>) {
-        cocktailsAdapter.clearAll()
-        cocktailsAdapter.add(list)
-    }
-
-    private fun updateCocktailList(category: Category) {
-        viewModel.getCocktails(category.name)
-    }
-
-    private fun initCategoriesRecyclerView(rvItem: RecyclerView) {
-        categoriesAdapter = CategoryListAdapter(object: OnAdapterClickListener<Category> {
-            override fun onClickItem(item: Category) {
-                updateCocktailList(item)
-            }
-        })
-        rvItem.adapter = categoriesAdapter
-        rvItem.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
-        rvItem.setHasFixedSize(false)
-    }
-
-    private fun initRecyclerView(rvItem: RecyclerView) {
-        cocktailsAdapter = CocktailListAdapter()
-        rvItem.adapter = cocktailsAdapter
-        rvItem.layoutManager = GridLayoutManager(this, 2)
-        rvItem.setHasFixedSize(true)
+    override fun onPause() {
+        cicerone.getNavigatorHolder().removeNavigator()
+        super.onPause()
     }
 }

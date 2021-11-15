@@ -12,7 +12,7 @@ import ru.dmdev.cocktails.repositories.CocktailsRepository
 import ru.dmdev.cocktails.repositories.models.RepositoryResult
 import javax.inject.Inject
 
-class MainViewModel @Inject constructor(
+class CocktailsViewModel @Inject constructor(
     private val categoriesRepository: CategoriesRepository,
     private val cocktailsRepository: CocktailsRepository) : ViewModel() {
     private val _spinner = MutableLiveData<Boolean>()
